@@ -26,21 +26,21 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
-    - name: Build the frontend image and push it to ACR
+    - name: Build the inventory image and push it to ACR
       uses: docker/build-push-action@v2
       with:
         push: true
         tags: azcrvfunctionpov.azurecr.io/inv-v1:${{ github.sha }}
         file: oms-services/inventory-controller/Dockerfile
         
-    - name: Build the middleware image and push it to ACR
+    - name: Build the product image and push it to ACR
       uses: docker/build-push-action@v2
       with:
         push: true
         tags: azcrvfunctionpov.azurecr.io/prdt-v1:${{ github.sha }}
         file: oms-services/product-controller/Dockerfile
         
-    - name: Build the Backend image and push it to ACR
+    - name: Build the order image and push it to ACR
       uses: docker/build-push-action@v2
       with:
         push: true
