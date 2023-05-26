@@ -7,5 +7,7 @@ EXPOSE 8081
 
 ADD ./target/InventoryController-1.0-SNAPSHOT.jar InventoryController-1.0-SNAPSHOT.jar
 
+#RUN cp target/InventoryController-1.0-SNAPSHOT.jar /usr/share/${JAR_FILE}
+
 #Run the Jar File
 ENTRYPOINT ["java","-jar","/InventoryController-1.0-SNAPSHOT.jar"]
