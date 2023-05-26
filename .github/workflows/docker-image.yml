@@ -1,48 +1,32 @@
-name: docker_build_push_acr
+name: Docker
 
 on:
-  workflow_dispatch:
+  push:
+    tags: ["v*.*.*"]
+
+env:
+  IMAGE_NAME: inv-controller
 
 jobs:
-  docker_build_push_acr:
-    name: 'Docker Build and Push to ACR'
+  build:
+    name: Build container image
     runs-on: ubuntu-latest
-    environment: dev
- 
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
- 
     steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v2
- 
-    - name: 'Docker Login'
-      uses: azure/docker-login@v1
-      with:
-        login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-        username: ${{ secrets.REGISTRY_USERNAME }}
-        password: ${{ secrets.REGISTRY_PASSWORD }}
-
-    - name: Build the inventory image and push it to ACR
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: azcrvfunctionpov.azurecr.io/inv-v1:${{ github.sha }}
-        file: oms-services/inventory-controller/Dockerfile
-        
-    - name: Build the product image and push it to ACR
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: azcrvfunctionpov.azurecr.io/prdt-v1:${{ github.sha }}
-        file: oms-services/product-controller/Dockerfile
-        
-    - name: Build the order image and push it to ACR
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: azcrvfunctionpov.azurecr.io/ord-v1:${{ github.sha }}
-        file: oms-services/order-controller/Dockerfile
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Get tag
+        id: tag
+        uses: VidyaSV123/action-get-tag@v1
+      - name: Log into registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build & Push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          build-args: |
+            version=${{ steps.tag.outputs.tag }}
+          tags: ${{ secrets.ACR_ENDPOINT }}/${{ env.IMAGE_NAME }}:${{ steps.tag.outputs.tag }}
