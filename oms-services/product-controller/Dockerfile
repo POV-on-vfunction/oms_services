@@ -5,7 +5,7 @@ FROM openjdk:8
 EXPOSE 8082
 
 
-ADD target/ProductController-1.0-SNAPSHOT.jar ProductController-1.0-SNAPSHOT.jar
+ADD ./target/ProductController-1.0-SNAPSHOT.jar ProductController-1.0-SNAPSHOT.jar
 
 #Run the Jar File
 ENTRYPOINT ["java","-jar","/ProductController-1.0-SNAPSHOT.jar"]
