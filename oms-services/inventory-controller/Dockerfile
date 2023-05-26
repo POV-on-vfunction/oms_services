@@ -3,7 +3,7 @@ FROM openjdk:8-jdk-alpine
 
 ARG JAR_FILE=../target/*.jar
 
-COPY InventoryController-1.0-SNAPSHOT.jar inv.jar
+COPY ./target/InventoryController-1.0-SNAPSHOT.jar inv.jar
 
 #ADD ./target/InventoryController-1.0-SNAPSHOT.jar inv.jar
 
