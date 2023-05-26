@@ -5,7 +5,7 @@ FROM openjdk:8-jdk-alpine
 EXPOSE 8081
 
 
-ADD InventoryController-1.0-SNAPSHOT.jar InventoryController-1.0-SNAPSHOT.jar
+ADD inventory-controller/target/InventoryController-1.0-SNAPSHOT.jar InventoryController-1.0-SNAPSHOT.jar
 
 #RUN cp target/InventoryController-1.0-SNAPSHOT.jar /usr/share/InventoryController-1.0-SNAPSHOT.jar
 
