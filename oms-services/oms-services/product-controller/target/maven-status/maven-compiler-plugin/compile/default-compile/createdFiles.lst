@@ -1,0 +1,5 @@
+com\oms\repository\ProductRepository.class
+com\oms\service\ProductService.class
+com\oms\inventorycontroller\dto\InventoryServiceFetchInventoryInDTO.class
+com\oms\repository\OrderLineRepository.class
+com\oms\inventorycontroller\dto\InventoryServiceFetchInventoryOutDTO.class

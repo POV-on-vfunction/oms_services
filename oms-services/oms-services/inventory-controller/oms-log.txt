@@ -1,0 +1,3 @@
+com.oms.controller.InventoryController
+com.oms.service.InventoryService
+com.oms.service.InventoryService
